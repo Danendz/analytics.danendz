@@ -135,6 +135,7 @@ func (c *RabbitConsumer) consumeOnce(ctx context.Context) error {
 			}
 
 			_, err := c.Service.Track(services.TrackInput{
+				EventId:    e.EventId,
 				AppName:    e.AppName,
 				UserID:     e.UserID,
 				EventName:  e.EventName,
