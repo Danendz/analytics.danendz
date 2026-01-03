@@ -118,6 +118,7 @@ func (c *RabbitConsumer) consumeOnce(ctx context.Context) error {
 			return cerr
 
 		case msg, ok := <-deliveries:
+			log.Println("consumer receive")
 			if !ok {
 				return nil
 			}
@@ -133,7 +134,6 @@ func (c *RabbitConsumer) consumeOnce(ctx context.Context) error {
 				at = e.TS.UTC()
 			}
 
-			log.Println("consumer receive")
 			_, err := c.Service.Track(services.TrackInput{
 				AppName:    e.AppName,
 				UserID:     e.UserID,
@@ -141,7 +141,6 @@ func (c *RabbitConsumer) consumeOnce(ctx context.Context) error {
 				Properties: e.Properties,
 				At:         at,
 			})
-			log.Println("consumer created record")
 
 			if errors.Is(err, services.ErrQueueFull) {
 				_ = msg.Nack(false, true)
