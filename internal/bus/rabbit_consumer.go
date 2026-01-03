@@ -24,6 +24,7 @@ type RabbitConsumer struct {
 }
 
 type BusEvent struct {
+	EventId    string         `json:"event_id"`
 	AppName    string         `json:"app_name"`
 	UserID     *string        `json:"user_id"`
 	EventName  string         `json:"event_name"`

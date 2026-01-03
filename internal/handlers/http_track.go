@@ -8,6 +8,7 @@ import (
 )
 
 type TrackRequest struct {
+	EventId    string         `json:"event_id"`
 	AppName    string         `json:"app_name"`
 	UserID     *string        `json:"user_id"`
 	EventName  string         `json:"event_name"`
@@ -25,6 +26,7 @@ func (h HttpTrackHandler) Track(c *fiber.Ctx) error {
 	}
 
 	_, err := h.Service.Track(services.TrackInput{
+		EventId:    req.EventId,
 		AppName:    req.AppName,
 		UserID:     req.UserID,
 		EventName:  req.EventName,

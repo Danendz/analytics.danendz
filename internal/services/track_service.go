@@ -12,6 +12,7 @@ var ErrInvalid = errors.New("invalid event")
 var ErrQueueFull = errors.New("queue full")
 
 type TrackInput struct {
+	EventId    string
 	AppName    string
 	UserID     *string
 	EventName  string
@@ -33,6 +34,7 @@ func (s TrackService) Track(in TrackInput) (*models.AnalyticsEvent, error) {
 	}
 
 	ev := models.AnalyticsEvent{
+		EventID:    in.EventId,
 		AppName:    in.AppName,
 		UserID:     in.UserID,
 		EventName:  in.EventName,
