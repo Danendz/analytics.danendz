@@ -118,13 +118,13 @@ func (c *RabbitConsumer) consumeOnce(ctx context.Context) error {
 			return cerr
 
 		case msg, ok := <-deliveries:
-			log.Printf("got msg rk=%s body=%s", msg.RoutingKey, string(msg.Body))
 			if !ok {
 				return nil
 			}
 
 			var e BusEvent
 			if err := json.Unmarshal(msg.Body, &e); err != nil {
+				log.Printf("got error json msg. err: %s", err.Error())
 				_ = msg.Nack(false, false)
 				continue
 			}
