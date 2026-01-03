@@ -25,7 +25,7 @@ type RabbitConsumer struct {
 
 type BusEvent struct {
 	AppName    string         `json:"app_name"`
-	UserID     *uint          `json:"user_id"`
+	UserID     *string        `json:"user_id"`
 	EventName  string         `json:"event_name"`
 	Properties map[string]any `json:"properties"`
 	TS         *time.Time     `json:"ts"`
@@ -124,7 +124,6 @@ func (c *RabbitConsumer) consumeOnce(ctx context.Context) error {
 
 			var e BusEvent
 			if err := json.Unmarshal(msg.Body, &e); err != nil {
-				log.Printf("got error json msg. err: %s", err.Error())
 				_ = msg.Nack(false, false)
 				continue
 			}

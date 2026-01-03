@@ -13,7 +13,7 @@ var ErrQueueFull = errors.New("queue full")
 
 type TrackInput struct {
 	AppName    string
-	UserID     *uint
+	UserID     *string
 	EventName  string
 	Properties map[string]any
 	At         time.Time

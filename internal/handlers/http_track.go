@@ -9,7 +9,7 @@ import (
 
 type TrackRequest struct {
 	AppName    string         `json:"app_name"`
-	UserID     *uint          `json:"user_id"`
+	UserID     *string        `json:"user_id"`
 	EventName  string         `json:"event_name"`
 	Properties map[string]any `json:"properties"`
 }
