@@ -39,7 +39,7 @@ func NewRabbitConsumer(s services.TrackService) *RabbitConsumer {
 		URL:         url,
 		Exchange:    "events",
 		Queue:       "analytics.events",
-		Bindings:    []string{"note.*", "task.*", "user.*", "app.*"},
+		Bindings:    []string{"note.*", "task.*", "user.*", "app.*", "study.*"},
 		PrefetchCnt: 500,
 	}
 }
