@@ -3,6 +3,5 @@
 
  - Go Fiber
  - Postgresql
- - RabbitMQ
-
+   
 Deployed on railway.com
