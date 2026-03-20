@@ -8,7 +8,6 @@ import (
 	"os/signal"
 	"syscall"
 
-	"analytics-svc/internal/bus"
 	"analytics-svc/internal/db"
 	"analytics-svc/internal/ingest"
 	"analytics-svc/internal/routes"
@@ -32,11 +31,6 @@ func main() {
 
 	trackService := services.TrackService{Writer: writer}
 
-	if os.Getenv("RABBITMQ_URL") != "" {
-		consumer := bus.NewRabbitConsumer(trackService)
-		go consumer.ConsumeForever(ctx)
-	}
-
 	app := fiber.New()
 	routes.Register(app, trackService)
 
@@ -47,11 +41,6 @@ func main() {
 		cancel()
 		_ = app.Shutdown()
 	}()
-
-	if os.Getenv("APP_PORT") != "" {
-		consumer := bus.NewRabbitConsumer(trackService)
-		go consumer.ConsumeForever(ctx)
-	}
 
 	log.Fatal(app.Listen(fmt.Sprintf(":%s", os.Getenv("APP_PORT"))))
 }
